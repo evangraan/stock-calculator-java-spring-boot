@@ -36,9 +36,15 @@ $ curl -X POST -H "Content-Type: application/json" -d '{"expression":"{\"fn\":\"
 Notes:
 ------
 
-Unit tests: I include examples of unit tests, with more time (and as a matter of normal course for me) I would implement a full suite of unit tests
-BDD tests: I include examples of BDD tests, with more time (and as a matter of normal course for me) I would implement a full suite of unit tests
+** Unit tests:
+I include examples of unit tests, with more time I would implement a full suite of unit tests
+The unit tests can be run individually, and there is also a TestSuite.java class to run a suite. They can also be run as an application using the TestRunner.java class.
+
+** BDD tests:
+I include an example of a BDD feature file, with more time I would implement a full suite of unit tests
+
 javadoc: I as a rule only document really complex algorithms. I am a believer that code should speak for itself. On public APIs of course documentation is paramount.
+
 Error handling: I added some data validation checks in the ORM classes, as well as some on the web controller. The following error handling I would improve given more time:
   - malformed expressions (whether from an error in json parsing or so provided)
   - configuration file not present
@@ -47,5 +53,8 @@ Error handling: I added some data validation checks in the ORM classes, as well 
   - request data missing
   - request data invalid
   - security not found
+
+Git: I have initialized the project for git, so it is tracking revisions locally. Normally of course I would add a remote origin and push to the cloud.
+
 Jenkins CI pipeline: I have added the limited unit and BDD tests in a CI pipeline. Please see TBD with username 'stockopedia' and password 'stockopedia'
 AWS API: Given more time I'd have loved to port this code to AWS with API Gateway and Lambdas.
