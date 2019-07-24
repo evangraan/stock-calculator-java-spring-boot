@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "dal.securities",
+    "type": "java.lang.String",
+    "description": "The CSV data store for securities"
+  },
+  {
+    "name": "dal.attributes",
+    "type": "java.lang.String",
+    "description": "The CSV data store for attributes"
+  },
+  {
+    "name": "dal.facts",
+    "type": "java.lang.String",
+    "description": "The CSV data store for attributes"
+  }
+]}

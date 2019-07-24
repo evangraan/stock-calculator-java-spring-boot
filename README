@@ -1,0 +1,51 @@
+Thank you for an engaging problem that was fun to solve!
+This implementation supports all operators (+, -, * /) and indefinitely deep nested 'fn' expressions.
+Attributes are read from the CSV data source, and so if new attributes are added, they can be used in expressions as well.
+
+Running:
+--------
+
+This code was developed in Java using the Spring Boot framework.
+As such, this project can be opened and run from Spring Tool Suite.
+
+User acceptance testing:
+------------------------
+
+I list a few basic user acceptance tests below, showing the application response in success and failure cases:
+
+** Simple expression
+$ curl -X POST -H "Content-Type: application/json" -d '{"security":"ABC", "expression":"{\"fn\":\"+\", \"a\":1, \"b\":1}"}' http://localhost:8080/
+{"query":{"security":"ABC","expression":"{\"fn\":\"+\", \"a\":1, \"b\":1}"},"value":"2.0"}
+
+** Malformed expression
+$ curl -X POST -H "Content-Type: application/json" -d '{"security":"BCD", "expression":"this does not follow the DSL ((1+1)+(5/5))*45/(((4+(1-1+1   ))))"}' http://localhost:8080/
+{"query":{"security":"BCD","expression":"this does not follow the DSL ((1+1)+(5/5))*45/(((4+(1-1+1   ))))"},"value":"Error: MALFORMED"}
+
+** Nested expression
+$ curl -X POST -H "Content-Type: application/json" -d '{"security":"ABC", "expression":"{\"fn\":\"-\", \"a\":\"eps\", \"b\":{\"fn\":\"*\", \"a\":\"debt\", \"b\":5}}"}' http://localhost:8080/
+{"query":{"security":"ABC","expression":"{\"fn\":\"-\", \"a\":\"eps\", \"b\":{\"fn\":\"*\", \"a\":\"debt\", \"b\":5}}"},"value":"-43.0"}
+
+** Unknown securities symbol
+$ curl -X POST -H "Content-Type: application/json" -d '{"security":"LLL", "expression":"{\"fn\":\"+\"":1, \"b\":1}"}' http://localhost:8080/
+{"query":{"security":"LLL","expression":"{\"fn\":\"+\", \"a\":1, \"b\":1}"},"value":"Error: could not find: [LLL]
+
+** DSL validation
+$ curl -X POST -H "Content-Type: application/json" -d '{"expression":"{\"fn\":\"+\", \"a\":1, \"b\":1}"}' http://localhost:8080/
+{"timestamp":"2019-07-24T21:26:09.431+0000","status":400,"error":"Bad Request","errors":[{"codes":["NotBlank.queryDTO.security","NotBlank.security","NotBlank.java.lang.String","NotBlank"],"arguments":[{"codes":["queryDTO.security","security"],"arguments":null,"defaultMessage":"security","code":"security"}],"defaultMessage":"Please provide a valid security. 3 Letters only.","objectName":"queryDTO","field":"security","rejectedValue":null,"bindingFailure":false,"code":"NotBlank"}],"message":"Validation failed for object='queryDTO'. Error count: 1","path":"/"}
+
+Notes:
+------
+
+Unit tests: I include examples of unit tests, with more time (and as a matter of normal course for me) I would implement a full suite of unit tests
+BDD tests: I include examples of BDD tests, with more time (and as a matter of normal course for me) I would implement a full suite of unit tests
+javadoc: I as a rule only document really complex algorithms. I am a believer that code should speak for itself. On public APIs of course documentation is paramount.
+Error handling: I added some data validation checks in the ORM classes, as well as some on the web controller. The following error handling I would improve given more time:
+  - malformed expressions (whether from an error in json parsing or so provided)
+  - configuration file not present
+  - configuration value missing
+  - configuration value invalid
+  - request data missing
+  - request data invalid
+  - security not found
+Jenkins CI pipeline: I have added the limited unit and BDD tests in a CI pipeline. Please see TBD with username 'stockopedia' and password 'stockopedia'
+AWS API: Given more time I'd have loved to port this code to AWS with API Gateway and Lambdas.
