@@ -57,7 +57,7 @@ Internationalization: At some point, should client languages be supported, inter
 Also, content in Constants should be retrieved from a languages.properties file and this mechanism should be used through-out
 to replace all messages.
 
-Git: I have initialized the project for git, so it is tracking revisions locally. Normally of course I would add a remote origin and push to the cloud.
+Git: I have initialized the project for git, so it is tracking revisions locally. Normally I would add a remote origin and push to the cloud.
 
 Jenkins CI pipeline: Given more time I would have liked to add unit and BDD tests in a CI pipeline.
 
