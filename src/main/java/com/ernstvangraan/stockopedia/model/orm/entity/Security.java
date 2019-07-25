@@ -1,4 +1,4 @@
-package com.ernstvangraan.stockopedia.model.orm;
+package com.ernstvangraan.stockopedia.model.orm.entity;
 
 import java.util.HashMap;
 

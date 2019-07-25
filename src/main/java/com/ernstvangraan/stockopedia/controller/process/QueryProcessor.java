@@ -4,17 +4,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.ernstvangraan.stockopedia.model.schema.QueryDTO;
 import com.ernstvangraan.stockopedia.model.schema.ResultDTO;
+import com.ernstvangraan.stockopedia.view.Constants;
 import com.ernstvangraan.stockopedia.controller.process.interpolation.Interpolator;
-import com.ernstvangraan.stockopedia.controller.process.math.Dijkstra;
-import com.ernstvangraan.stockopedia.controller.process.math.Infix;
+import com.ernstvangraan.stockopedia.controller.process.strategy.IProcessStrategy;
 
 @Component("queryProcessor")
-public class QueryProcessor {
+public class QueryProcessor {	
 	@Autowired
 	Interpolator interpolator;
 	
+	@Autowired
+	IProcessStrategy strategy;
+	
+	public ResultDTO process(QueryDTO query) {
+		ResultDTO result = new ResultDTO();
+		result.setQuery(query);
+		String expression = interpolator.interpolate(strategy.buildExpression(query.getExpression()), query.getSecurity());
+		setResultValue(result, expression);
+		
+		return result;
+	}
+
 	private boolean ableToEvaluate(String expression) {
-		if ((expression == null) || expression.contains("MALFORMED")){
+		if ((expression == null) || expression.contains(Constants.MALFORMED)){
 			return false;
 		}
 		return true;
@@ -23,21 +35,10 @@ public class QueryProcessor {
 	private boolean isInError(String expression) {
 		return expression.contains("Error");
 	}
-	
-	public ResultDTO process(QueryDTO query) {
-		Infix infix = new Infix();
-		ResultDTO result = new ResultDTO();
-		result.setQuery(query);
-		String expression = interpolator.interpolate(infix.infixIterativelyOrReportMalformed(query.getExpression()), query.getSecurity());
-		setResultValue(expression, result);
 		
-		return result;
-	}
-	
-	private void setResultValue(String expression, ResultDTO result) {
-		Dijkstra dijkstra = new Dijkstra();
+	private void setResultValue(ResultDTO result, String expression) {
 		if (ableToEvaluate(expression) && !isInError(expression)) {
-			result.setValue(dijkstra.evaluateShuntingYardPostFix(expression).toString());
+			result.setValue(strategy.evaluate(expression).toString());
 		} else {
 			SetResultFailure(result, expression);
 		}

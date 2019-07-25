@@ -3,7 +3,9 @@ package com.ernstvangraan.stockopedia.controller.process.math;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.ernstvangraan.stockopedia.model.schema.ExpressionDTO;
+import com.ernstvangraan.stockopedia.view.Constants;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +18,7 @@ public class Infix {
 			return infixIteratively(mapper, expression);
 		} catch (Exception e) {
 			logger.error("Error: " + e.getMessage());
-			return "Error: MALFORMED";
+			return "Error: " + Constants.MALFORMED;
 		}
 	}
 	

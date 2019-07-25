@@ -16,7 +16,7 @@ public class JSONResponder implements IResponder{
 		ObjectMapper mapper = new ObjectMapper();
 		ResultDTO error = new ResultDTO();
 		error.setQuery(query);
-		error.setValue("An error occurred. Please contact support.");
+		error.setValue(Constants.ERROR);
 		try {
 			return mapper.writeValueAsString(error);
 		} catch (JsonProcessingException e) {

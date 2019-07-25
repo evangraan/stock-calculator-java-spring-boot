@@ -15,13 +15,13 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class DALConfiguration {
 	@Valid
-	@NotBlank(message = "securities CSV is mandatory. Please add the dal.securities field in dalconfiguration.properties")
+	@NotBlank(message = "securities data source is mandatory. Please add the dal.securities field in dalconfiguration.properties")
     private String securities;
 	@Valid
-	@NotBlank(message = "attributes CSV is mandatory. Please add the dal.attributes fieldin dalconfiguration.properties")
+	@NotBlank(message = "attributes data source is mandatory. Please add the dal.attributes fieldin dalconfiguration.properties")
     private String attributes;
 	@Valid
-	@NotBlank(message = "facts CSV is mandatory. Please add the dal.facts fieldin dalconfiguration.properties")
+	@NotBlank(message = "facts data source is mandatory. Please add the dal.facts fieldin dalconfiguration.properties")
     private String facts;
     
 	public String getSecurities() {

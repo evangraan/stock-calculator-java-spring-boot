@@ -1,11 +1,12 @@
 Thank you for an engaging problem that was fun to solve!
+
 This implementation supports all operators (+, -, * /) and indefinitely deep nested 'fn' expressions.
 Attributes are read from the CSV data source, and so if new attributes are added, they can be used in expressions as well.
 
 Running:
 --------
 
-This code was developed in Java using the Spring Boot framework.
+This code was developed in Java using the Spring Boot framework on macOS 10.
 As such, this project can be opened and run from Spring Tool Suite.
 
 User acceptance testing:
@@ -26,7 +27,7 @@ $ curl -X POST -H "Content-Type: application/json" -d '{"security":"ABC", "expre
 {"query":{"security":"ABC","expression":"{\"fn\":\"-\", \"a\":\"eps\", \"b\":{\"fn\":\"*\", \"a\":\"debt\", \"b\":5}}"},"value":"-43.0"}
 
 ** Unknown securities symbol
-$ curl -X POST -H "Content-Type: application/json" -d '{"security":"LLL", "expression":"{\"fn\":\"+\"":1, \"b\":1}"}' http://localhost:8080/
+$ curl -X POST -H "Content-Type: application/json" -d '{"security":"LLL", "expression":"{\"fn\":\"+\":1, \"b\":1}"}' http://localhost:8080/
 {"query":{"security":"LLL","expression":"{\"fn\":\"+\", \"a\":1, \"b\":1}"},"value":"Error: could not find: [LLL]
 
 ** DSL validation
@@ -41,9 +42,7 @@ I include examples of unit tests, with more time I would implement a full suite 
 The unit tests can be run individually, and there is also a TestSuite.java class to run a suite. They can also be run as an application using the TestRunner.java class.
 
 ** BDD tests:
-I include an example of a BDD feature file, with more time I would implement a full suite of unit tests
-
-javadoc: I as a rule only document really complex algorithms. I am a believer that code should speak for itself. On public APIs of course documentation is paramount.
+I include an example of a BDD feature file in com.ernstvangraan.stockopedia.test.bdd, with more time I would implement a full suite of unit tests
 
 Error handling: I added some data validation checks in the ORM classes, as well as some on the web controller. The following error handling I would improve given more time:
   - malformed expressions (whether from an error in json parsing or so provided)
@@ -53,8 +52,13 @@ Error handling: I added some data validation checks in the ORM classes, as well 
   - request data missing
   - request data invalid
   - security not found
+  
+Internationalization: At some point, should client languages be supported, internationalization libraries could be introduced.
+Also, content in Constants should be retrieved from a languages.properties file and this mechanism should be used through-out
+to replace all messages.
 
 Git: I have initialized the project for git, so it is tracking revisions locally. Normally of course I would add a remote origin and push to the cloud.
 
-Jenkins CI pipeline: I have added the limited unit and BDD tests in a CI pipeline. Please see TBD with username 'stockopedia' and password 'stockopedia'
+Jenkins CI pipeline: Given more time I would have liked to add unit and BDD tests in a CI pipeline.
+
 AWS API: Given more time I'd have loved to port this code to AWS with API Gateway and Lambdas.

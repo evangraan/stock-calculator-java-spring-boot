@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ernstvangraan.stockopedia.model.orm.DAL;
-import com.ernstvangraan.stockopedia.model.orm.Security;
+import com.ernstvangraan.stockopedia.model.orm.entity.Security;
 
 @Component("interpolator")
 public class Interpolator implements IInterpolator {
