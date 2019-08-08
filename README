@@ -1,4 +1,5 @@
-Thank you for an engaging problem that was fun to solve!
+This is a fun project that parses a JSON database of stock symbols and attributes (relational JSON) and uses the strategy pattern to 
+parse a formula to be executed on the stock attribites. The implementation uses the strategy pattern, and a few other design patterns.
 
 This implementation supports all operators (+, -, * /) and indefinitely deep nested 'fn' expressions.
 Attributes are read from the CSV data source, and so if new attributes are added, they can be used in expressions as well.
